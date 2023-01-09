@@ -1,52 +1,52 @@
-import { Component } from 'react';
-import  {SearchbarHead, SearchForm, SearchFormButton, SearchFormInput} from './Searchbar.styled.jsx';
+import { useState } from 'react';
+import {
+  SearchbarHead,
+  SearchForm,
+  SearchFormButton,
+  SearchFormInput,
+} from './Searchbar.styled.jsx';
 import { FcSearch } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
+export default function Searchbar({ onSubmit }) {
+  const [searchItem, setSearchItem] = useState('');
 
-export default class Searchbar extends Component {
+  const handleSearchChange = event => {
+    setSearchItem({ searchItem: event.currentTarget.value.toLowerCase() });
+  };
 
-    static propTypes = { onSubmit: PropTypes.func.isRequired };
-
-    state = {
-        searchItem: '',
+  const handleSubmit = event => {
+    event.preventDefault();
+    if (searchItem.trim() === '') {
+      toast.error('Please enter correct data!', { position: 'top-center' });
+      setSearchItem({ searchItem: '' });
+      return;
     }
+    onSubmit(searchItem);
+    setSearchItem({ searchItem: '' });
+  };
 
-    handleSearchChange = event => {
-        this.setState({ searchItem: event.currentTarget.value.toLowerCase() });
-    }
+  return (
+    <SearchbarHead>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchFormButton type="submit">
+          <FcSearch size={18} /> <span>Search</span>
+        </SearchFormButton>
 
-    handleSubmit = event => {
-        event.preventDefault();
-        if (this.state.searchItem.trim() === '') {
-            toast.error('Please enter correct data!', { position: "top-center", });
-            this.setState({ searchItem: '' });
-            return;
-        }
-        this.props.onSubmit(this.state.searchItem);
-        this.setState({ searchItem: '' });
-    }
-
-
-    render() {
-    return (
-        <SearchbarHead >
-            <SearchForm onSubmit={this.handleSubmit}>
-                <SearchFormButton type="submit">
-                    <FcSearch size={18}/> <span>Search</span>
-                </SearchFormButton>
-
-                <SearchFormInput
-                    type="text"
-                    autoComplete="off"
-                    autoFocus
-                    placeholder="Search images and photos"
-                    value={this.state.searchItem}
-                    onChange={this.handleSearchChange}
-                />
-            </SearchForm>
-        </SearchbarHead>
-    );
+        <SearchFormInput
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          value={searchItem}
+          onChange={handleSearchChange}
+        />
+      </SearchForm>
+    </SearchbarHead>
+  );
 }
+
+Modal.propTypes = {
+  onSubmit: PropTypes.node.isRequired,
 };
