@@ -70,19 +70,19 @@ export const App = () => {
       {status === 'pending' && totalImages === 0 && <Loader />}
 
       {status === 'idle' && (
-        <Notification message="Please find the image" status={status} />
+        <Notification message="Please, try again" status={status} />
       )}
 
       {status === 'empty' && (
         <Notification
-          message="We didn't find anything, try to enter the correct query"
+          message="Please, try to enter the correct query"
           status={status}
         />
       )}
 
       {status === 'error' && (
         <Notification
-          message="Whoops, something went wrong, try again"
+          message="Please, try again"
           status={status}
         />
       )}

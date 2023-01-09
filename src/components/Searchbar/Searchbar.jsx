@@ -20,7 +20,7 @@ export const Searchbar = ({ onSubmit }) => {
     e.preventDefault();
     const normalizedQuery = query.trim();
     if (normalizedQuery === '') {
-      return toast.info('Insert correct request', {
+      return toast.info('Please, enter the correct query', {
         position: 'top-right',
         autoClose: 2000,
         hideProgressBar: false,
