@@ -1,7 +1,7 @@
 import { BallTriangle } from 'react-loader-spinner';
 import { Wrapper } from './Loader.styled.jsx';
 
-const LoaderImg = () => {
+function LoaderImg () {
     return (
         <Wrapper>
         <BallTriangle

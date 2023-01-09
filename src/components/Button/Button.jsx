@@ -1,8 +1,8 @@
-import React from "react";
+// import React from "react";
 import {Button, ButtonDiv} from './Button.styled.jsx'
 import PropTypes from 'prop-types';
 
-const Btn = ({ onClick }) => {
+function Btn ({ onClick }) {
     return (
         <ButtonDiv>
         <Button
