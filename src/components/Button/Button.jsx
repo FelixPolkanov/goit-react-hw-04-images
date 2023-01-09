@@ -1,21 +1,18 @@
-// import React from "react";
-import {Button, ButtonDiv} from './Button.styled.jsx'
+import { Btn } from './Button.styled';
 import PropTypes from 'prop-types';
+import { Loader } from 'components/Loader/Loader';
 
-function Btn ({ onClick }) {
-    return (
-        <ButtonDiv>
-        <Button
-        type="submit"
-        onClick={onClick}
-    > Load more
-            </Button>
-            </ButtonDiv>
-    )
-};
+export const Button = ({ onLoadMore, status }) => (
+  <>
+    {status === 'pending' ? (
+      <Loader />
+    ) : (
+      <Btn onClick={onLoadMore}>Load more</Btn>
+    )}
+  </>
+);
 
-export default Btn;
-
-Btn.propTypes = {
-    onClick: PropTypes.func.isRequired,
+Button.propTypes = {
+  onLoadMore: PropTypes.func.isRequired,
+  status: PropTypes.string.isRequired,
 };

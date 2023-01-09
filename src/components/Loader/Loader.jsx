@@ -1,17 +1,21 @@
-import { BallTriangle } from 'react-loader-spinner';
-import { Wrapper } from './Loader.styled.jsx';
+import { ThreeCircles } from 'react-loader-spinner';
+import { LoadContainer } from './Loader.styled';
 
-function LoaderImg () {
-    return (
-        <Wrapper>
-        <BallTriangle
-            heigth="200"
-            width="200"
-            color='blue'
-            ariaLabel='loading'
-            />
-            </Wrapper>
-    );
-};
+export const Loader = () => (
+  <LoadContainer>
+    <ThreeCircles
+      height="100"
+      width="100"
+      color="#4fa94d"
+      wrapperStyle={{}}
+      wrapperClass=""
+      visible={true}
+      ariaLabel="three-circles-rotating"
+      outerCircleColor=""
+      innerCircleColor=""
+      middleCircleColor=""
+    />
+  </LoadContainer>
+);
 
-export default LoaderImg;
+export default Loader;

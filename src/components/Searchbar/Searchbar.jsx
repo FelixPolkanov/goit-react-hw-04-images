@@ -1,52 +1,60 @@
+import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import {
-  SearchbarHead,
+  Header,
   SearchForm,
-  SearchFormButton,
-  SearchFormInput,
-} from './Searchbar.styled.jsx';
-import { FcSearch } from 'react-icons/fc';
-import { toast } from 'react-toastify';
-import PropTypes from 'prop-types';
+  BtnSubmit,
+  InputForm,
+  ButtonIcon,
+} from './Searchbar.styled';
 
-export default function Searchbar({ onSubmit }) {
-  const [searchItem, setSearchItem] = useState('');
+export const Searchbar = ({ onSubmit }) => {
+  const [query, setQuery] = useState('');
 
-  const handleSearchChange = event => {
-    setSearchItem({ searchItem: event.currentTarget.value.toLowerCase() });
-  };
+  const handleQueryChange = event =>
+    setQuery(event.currentTarget.value.toLowerCase());
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    if (searchItem.trim() === '') {
-      toast.error('Please enter correct data!', { position: 'top-center' });
-      setSearchItem({ searchItem: '' });
-      return;
+  const handleSubmit = e => {
+    e.preventDefault();
+    const normalizedQuery = query.trim();
+    if (normalizedQuery === '') {
+      return toast.info('Insert correct request', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light',
+      });
     }
-    onSubmit(searchItem);
-    setSearchItem({ searchItem: '' });
+
+    onSubmit(normalizedQuery);
+    setQuery('');
   };
 
   return (
-    <SearchbarHead>
+    <Header>
       <SearchForm onSubmit={handleSubmit}>
-        <SearchFormButton type="submit">
-          <FcSearch size={18} /> <span>Search</span>
-        </SearchFormButton>
+        <BtnSubmit type="submit">
+          <ButtonIcon />
+        </BtnSubmit>
 
-        <SearchFormInput
+        <InputForm
           type="text"
+          name="query"
           autoComplete="off"
+          value={query}
           autoFocus
           placeholder="Search images and photos"
-          value={searchItem}
-          onChange={handleSearchChange}
+          onChange={handleQueryChange}
         />
       </SearchForm>
-    </SearchbarHead>
+    </Header>
   );
-}
+};
 
-Modal.propTypes = {
-  onSubmit: PropTypes.node.isRequired,
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };

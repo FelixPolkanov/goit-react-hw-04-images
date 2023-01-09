@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from 'components/App.jsx';
-import {GlobalStyle} from './index.styled.jsx';
-import 'react-toastify/dist/ReactToastify.css'; 
+import 'modern-normalize';
+import { App } from './components/App';
+import { GlobalStyles, theme } from '../src/styles/index';
+import { Global, ThemeProvider } from '@emotion/react';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <GlobalStyle />
-    <App />
+    <ThemeProvider theme={theme}>
+      <Global styles={GlobalStyles} />
+      <App />
+    </ThemeProvider>
   </React.StrictMode>
 );
